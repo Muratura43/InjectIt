@@ -1,22 +1,60 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace InjectIt
 {
     public class Container
     {
-        public Container For<T>()
+        private Dictionary<Type, Type> _map = new Dictionary<Type, Type>();
+
+        public ContainerBuilder For<TSource>()
         {
-            return this;
+            return For(typeof(TSource));
         }
 
-        public object Resolve<T>()
+        public ContainerBuilder For(Type sourceType)
         {
-            throw new NotImplementedException();
+            return new ContainerBuilder(this, sourceType);
         }
 
-        public void Use<T>()
+        public TSource Resolve<TSource>()
         {
-            throw new NotImplementedException();
+            return (TSource)Resolve(typeof(TSource));
+        }
+
+        public object Resolve(Type sourceType)
+        {
+            if (_map.ContainsKey(sourceType))
+            {
+                var destinationType = _map[sourceType];
+                return Activator.CreateInstance(destinationType);
+            }
+            else
+            {
+                throw new InvalidOperationException($"Dependency not registered for: {sourceType.FullName}");
+            }
+        }
+
+        public class ContainerBuilder
+        {
+            private Container _container;
+            private Type _typeSource;
+
+            public ContainerBuilder(Container container, Type type)
+            {
+                _container = container;
+                _typeSource = type;
+            }
+
+            public void Use<TDestination>()
+            {
+                Use(typeof(TDestination));
+            }
+
+            public void Use(Type typeDestination)
+            {
+                _container._map.Add(_typeSource, typeDestination);
+            }
         }
     }
 }
