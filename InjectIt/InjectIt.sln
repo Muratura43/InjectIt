@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32002.261
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InjectIt", "InjectIt\InjectIt.csproj", "{FFD1AC55-5511-4684-843F-400D10CF352B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InjectIt.Test", "InjectIt.Test\InjectIt.Test.csproj", "{1507E749-E2B6-494C-9853-2C6A200D636B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FFD1AC55-5511-4684-843F-400D10CF352B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFD1AC55-5511-4684-843F-400D10CF352B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFD1AC55-5511-4684-843F-400D10CF352B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFD1AC55-5511-4684-843F-400D10CF352B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1507E749-E2B6-494C-9853-2C6A200D636B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1507E749-E2B6-494C-9853-2C6A200D636B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1507E749-E2B6-494C-9853-2C6A200D636B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1507E749-E2B6-494C-9853-2C6A200D636B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EE7E0044-EF20-4BA4-B3E6-2DFB273AE1AE}
+	EndGlobalSection
+EndGlobal
