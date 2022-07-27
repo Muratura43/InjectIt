@@ -15,5 +15,17 @@ namespace InjectIt.Test
 
             Assert.AreEqual(typeof(SqlServerLogger), logger.GetType());
         }
+
+        [TestMethod]
+        public void CanResolveTypesWithoutDefaultConstructor()
+        {
+            var container = new Container();
+            container.For<ILogger>().Use<SqlServerLogger>();
+            container.For<IRepository<Employee>>().Use<SqlRepository<Employee>>();
+
+            var repository = container.Resolve<IRepository<Employee>>();
+
+            Assert.AreEqual(typeof(SqlRepository<Employee>), repository.GetType());
+        }
     }
 }

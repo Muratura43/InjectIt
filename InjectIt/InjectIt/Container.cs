@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace InjectIt
 {
@@ -27,12 +28,30 @@ namespace InjectIt
             if (_map.ContainsKey(sourceType))
             {
                 var destinationType = _map[sourceType];
-                return Activator.CreateInstance(destinationType);
+                return Geparameters(destinationType);
             }
             else
             {
                 throw new InvalidOperationException($"Dependency not registered for: {sourceType.FullName}");
             }
+        }
+
+        private object Geparameters(Type destinationType)
+        {
+            var firstConstructor = destinationType.GetConstructors()
+                                                  .OrderByDescending(c => c.GetParameters().Count())
+                                                  .FirstOrDefault();
+
+            if (firstConstructor == null)
+            {
+                throw new InvalidOperationException($"No constructors found for: {destinationType.FullName}");
+            }
+
+            var parameters = firstConstructor.GetParameters()
+                                             .Select(p => Resolve(p.ParameterType))
+                                             .ToArray();
+
+            return Activator.CreateInstance(destinationType, parameters);
         }
 
         public class ContainerBuilder
