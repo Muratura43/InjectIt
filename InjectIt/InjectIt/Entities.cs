@@ -6,4 +6,9 @@
         public string Name { get; set; }
         public string Department { get; set; }
     }
+
+    public class Customer
+    {
+
+    }
 }

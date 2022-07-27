@@ -28,7 +28,19 @@ namespace InjectIt
             if (_map.ContainsKey(sourceType))
             {
                 var destinationType = _map[sourceType];
-                return Geparameters(destinationType);
+                return CreateInstance(destinationType);
+            }
+            else if (sourceType.IsGenericType &&
+                    _map.ContainsKey(sourceType.GetGenericTypeDefinition()))
+            {
+                var destination = _map[sourceType.GetGenericTypeDefinition()];
+                var closedType = destination.MakeGenericType(sourceType.GetGenericArguments());
+
+                return CreateInstance(closedType);
+            }
+            else if (!sourceType.IsAbstract)
+            {
+                return CreateInstance(sourceType);
             }
             else
             {
@@ -36,7 +48,7 @@ namespace InjectIt
             }
         }
 
-        private object Geparameters(Type destinationType)
+        private object CreateInstance(Type destinationType)
         {
             var firstConstructor = destinationType.GetConstructors()
                                                   .OrderByDescending(c => c.GetParameters().Count())

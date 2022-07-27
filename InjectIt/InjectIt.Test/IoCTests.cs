@@ -27,5 +27,17 @@ namespace InjectIt.Test
 
             Assert.AreEqual(typeof(SqlRepository<Employee>), repository.GetType());
         }
+
+        [TestMethod]
+        public void CanResolveConcreteTypes()
+        {
+            var container = new Container();
+            container.For<ILogger>().Use<SqlServerLogger>();
+            container.For(typeof(IRepository<>)).Use(typeof(SqlRepository<>));
+
+            var service = container.Resolve<InvoiceService>();
+
+            Assert.IsNotNull(service);
+        }
     }
 }
